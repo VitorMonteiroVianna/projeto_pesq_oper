@@ -1,5 +1,4 @@
-# llm_integration/services.py
-from .models import LLMInteraction
+from .models import LLMRequest
 # import openai
 # import anthropic
 
@@ -42,7 +41,7 @@ class LLMService:
         
     def log_interaction(self, prompt: str, response: str, tokens_input: int, tokens_output: int, status: str = 'success'):
         """Salva a interação com o LLM no banco de dados."""
-        LLMInteraction.objects.create(
+        LLMRequest.objects.create(
             model_type=self.model_type,
             prompt=prompt,
             response=response,

@@ -1,9 +1,10 @@
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from llm_integration.models import LLMRequest
 
-User = get_user_model()
+# User = get_user_model()
 
 class OptimizationProcess(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -17,7 +18,7 @@ class OptimizationProcess(models.Model):
     )
     llm_request = models.OneToOneField(LLMRequest, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    credit_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    credit_cost = models.IntegerField()
 
     class Meta:
         ordering = ['-created_at']
@@ -29,6 +30,7 @@ class OptimizationProcess(models.Model):
 
     def __str__(self):
         return f"Optimization {self.id} - {self.user} ({self.status})"
+
 
 class ResultAnalysis(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from resource_optimization.views import OptimizationProcessAPIView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('process/', OptimizationProcessAPIView.as_view(), name='create_process'),
+    path('process/<uuid:process_id>/', OptimizationProcessAPIView.as_view(), name='get_process'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Login (gera JWT)
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # Atualiza o token
 ]

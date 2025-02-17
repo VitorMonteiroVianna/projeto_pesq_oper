@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import environ
+from datetime import timedelta
+
 
 env = environ.Env()
 environ.Env.read_env()
@@ -110,6 +112,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Exige autenticação por padrão
+    ]
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),  # Tempo de vida do token (1h)
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Tempo de vida do refresh token (7 dias)
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,  # Chave de assinatura (use a mesma do Django)
+    "AUTH_HEADER_TYPES": ("Bearer",),  # Prefixo no header da requisição
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
