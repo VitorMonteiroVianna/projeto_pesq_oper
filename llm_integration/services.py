@@ -4,9 +4,9 @@ from .models import LLMRequest
 
 
 class LLMService:
-    def __init__(self, model_type: str, api_key: str):
+    def __init__(self, model_type: str):
         self.model_type = model_type
-        self.api_key = api_key
+        self.api_key = ""
         
         # if model_type == 'openai':
         #     openai.api_key = api_key
@@ -21,11 +21,11 @@ class LLMService:
         #     engine="text-davinci-003",
         #     prompt=prompt,
         #     max_tokens=150
-        # )
+        # ) 
         # tokens_input = response['usage']['prompt_tokens']
         # tokens_output = response['usage']['completion_tokens']
         # return response.choices[0].text.strip(), tokens_input, tokens_output
-        return "Aqui vem o uso do GPT"
+        return "Aqui vem o uso do GPT", 1, 1
 
     def get_anthropic_response(self, prompt: str):
         """Usa a API Anthropic para obter uma resposta e retorna também o número de tokens usados."""
@@ -37,18 +37,19 @@ class LLMService:
         # tokens_input = len(prompt.split())  # Considera o número de palavras como tokens de entrada
         # tokens_output = len(response.completion.split())  # Considera o número de palavras como tokens de saída
         # return response.completion.strip(), tokens_input, tokens_output
-        return "Aqui vem o uso da anthroptic"
+        return "Aqui vem o uso da anthroptic", 1, 1
         
     def log_interaction(self, prompt: str, response: str, tokens_input: int, tokens_output: int, status: str = 'success'):
         """Salva a interação com o LLM no banco de dados."""
-        LLMRequest.objects.create(
-            model_type=self.model_type,
-            prompt=prompt,
-            response=response,
-            status=status,
-            tokens_input=tokens_input,
-            tokens_output=tokens_output
-        )
+        # LLMRequest.objects.create(
+        #     model_type=self.model_type,
+        #     prompt=prompt,
+        #     response=response,
+        #     status=status,
+        #     tokens_input=tokens_input,
+        #     tokens_output=tokens_output
+        # )
+        print("Aqui vai inserir os dados da IA")
 
     def get_response(self, prompt: str):
         """Método genérico para pegar a resposta do modelo adequado."""

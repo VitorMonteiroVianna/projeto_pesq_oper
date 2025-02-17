@@ -23,11 +23,6 @@ class OptimizationProcess(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-    def charge_credits(self):
-        if self.user.credit_balance.withdraw(self.credit_cost):
-            return True
-        return False
-
     def __str__(self):
         return f"Optimization {self.id} - {self.user} ({self.status})"
 
