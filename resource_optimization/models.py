@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from llm_integration.models import LLMRequest
 
-# User = get_user_model()
+
 
 class OptimizationProcess(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
